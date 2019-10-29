@@ -1,4 +1,5 @@
 //depth first search of a graph
+//for graph with n vertex numberung of vertices should be from 0 to n-1
 #include<iostream>
 using namespace std;
 void print(int** mat,int n,int start,bool* visit)
