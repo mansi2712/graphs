@@ -1,0 +1,56 @@
+//dfs for disconnected graph
+#include<iostream>
+using namespace std;
+void print(int** mat,int n,int start,bool *visit)
+{
+	cout<<start<<endl;
+	visit[start]=true;
+	for(int i=0;i<n;i++)
+	{
+		if(start==i)
+			continue;
+		if(mat[start][i]==1)
+		{
+			if(visit[i]==true)
+				continue;
+			print(mat,n,i,visit);
+		}
+	}
+}
+int main()
+{
+	int v,e;
+	int a,b;
+	cout<<"enter the no of vertices:";
+	cin>>v;
+	cout<<"enter the no of edges:";
+	cin>>e;
+	int** adjmat=new int*[v];
+	for(int i=0;i<v;i++)
+	{
+		adjmat[i]=new int[v];
+		for(int j=0;j<v;j++)
+			adjmat[i][j]=0;
+	}
+	cout<<"enter the edges:"<<endl;
+	for(int i=0;i<e;i++)
+	{
+		cin>>a>>b;
+		adjmat[a][b]=1;
+		adjmat[b][a]=1;
+	}
+	bool* visit=new bool[v];
+	for(int i=0;i<v;i++)
+		visit[i]=false;
+	for(int i=0;i<v;i++)
+	{
+		if(!visit[i])
+		print(adjmat,v,i,visit);
+	}
+  for(int i=0;i<v;i++)
+		delete[] adjmat[i];
+	delete[] adjmat;
+	delete[] visit;
+	return 0;
+	return 0;
+}
