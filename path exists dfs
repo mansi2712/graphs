@@ -6,14 +6,18 @@ bool path(int** mat,int n,int s,int e,bool* visit)
 	visit[s]=true;
 	if(s==e)
 		return true;
-	if(mat[s][e]==1)
-			return true;
-	for(int i=0;i<e;i++)
+	for(int i=0;i<n;i++)
 	{
-		if(mat[i][e]==1)
-			return true;
-		if((visit[i]==false)&&(mat[s][i]==1))
-			path(mat,n,i,e,visit);
+		if(s==i)
+			continue;
+		if(mat[s][i]==1)
+		{
+			if(mat[i][e]==1)
+				return true;
+			if((visit[i]==false)
+				if(path(mat,n,i,e,visit))
+					return true;
+		}
 	}
 	return false;
 }
