@@ -1,0 +1,71 @@
+//all the components of a graph through dfs in ascending order
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+void dfsfunc(int** mat,int n,int start,bool* visit,vector<int> &comp)
+{
+	visit[start]=true;
+	comp.push_back(start);
+	for(int i=0;i<n;i++)
+	{
+		if(start==i)
+			continue;
+		if(mat[start][i]==1)
+		{
+			if(visit[i]==true)
+				continue;
+			dfsfunc(mat,n,i,visit,comp);
+		}
+	}
+}
+int main()
+{
+	int v,e;
+	int a,b;
+	int count=0;
+	cout<<"enter the no of vertices:";
+	cin>>v;
+	cout<<"enter the no of edges:";
+	cin>>e;
+	int** adjmat=new int*[v];
+	for(int i=0;i<v;i++)
+	{
+		adjmat[i]=new int[v];
+		for(int j=0;j<v;j++)
+			adjmat[i][j]=0;
+	}
+	cout<<"enter the edges:"<<endl;
+	for(int i=0;i<e;i++)
+	{
+		cin>>a>>b;
+		adjmat[a][b]=1;
+		adjmat[b][a]=1;
+	}
+	bool* visit=new bool[v];
+	for(int i=0;i<v;i++)
+		visit[i]=false;
+	vector<int> comp;
+	vector< vector<int> > ans;
+	for(int i=0;i<v;i++)
+	{
+		if(!visit[i])
+		{
+			dfsfunc(adjmat,v,i,visit,comp);
+      sort(comp.begin(),comp.end());
+			ans.push_back(comp);
+			count++;
+			comp.clear();
+		}
+	}
+	for(int i=0;i<count;i++)
+	{
+		for(int j=0;j<ans[i].size();j++)
+			cout<<ans[i][j]<<" ";
+		cout<<endl;
+	}
+	for(int i=0;i<v;i++)
+		delete[] adjmat[i];
+	delete[] adjmat;
+	delete[] visit;
+	return 0;
+}
